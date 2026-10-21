@@ -3,7 +3,6 @@ import { Networks, Keypair, TransactionBuilder, Operation } from "@stellar/stell
 import {
   resolveAnchorConfig,
   sep10Authenticate,
-  fundIfNeeded,
   NETWORK_PASSPHRASE,
   STELLAR_NETWORK,
   HORIZON_URL,
