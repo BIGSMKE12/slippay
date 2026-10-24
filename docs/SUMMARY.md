@@ -48,6 +48,7 @@
 * [Relayer](api-reference/relayer.md)
 * [Ask Slippay](api-reference/ask.md)
 * [Metrics](api-reference/metrics.md)
+* [Route groups](api-reference/route-groups.md)
 * [Webhooks](api-reference/webhooks.md)
 * [Errors](api-reference/errors.md)
 
