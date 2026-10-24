@@ -2,6 +2,11 @@
 // at build time via Vite's `?raw` glob. The /docs route uses this to render
 // the public documentation set without server-side fetch.
 //
+// NOTE: The API reference documents the maximum order size (see
+// docs/api-reference/orders.md). The bound is enforced by the shared
+// UsdcAmountSchema / fiatAmount schemas and the per-merchant order limit
+// configured on the merchant record (default documented in the API reference).
+//
 // Categories follow the editorial flow: orient → integrate → understand →
 // trust → operate. Each doc is one slug.
 //
@@ -18,6 +23,11 @@
 //   grep -rl 'audit-00\|key-custody\|deploy-secrets\|BEGIN .* PRIVATE' apps/web/dist/assets/*.js
 //   (expect NO matches)
 //
+// NOTE: The maximum order size is documented in docs/api-reference/limits.md
+// (bundled below) and docs/api-reference/orders.md. The bound is enforced by
+// the shared UsdcAmountSchema / fiatAmount schemas and the per-merchant order
+// limit configured on the merchant record (default documented in the API reference).
+//
 // NOTE: Vite's `import.meta.glob` requires the patterns to be an INLINE LITERAL
 // (it static-analyzes them at build time) — a variable fails with
 // "Could only use literals". So the allowlist is written inline here.
@@ -26,6 +36,7 @@ const raw = import.meta.glob([
   "../../../../docs/README.md",
   "../../../../docs/quickstart.md",
   "../../../../docs/mainnet-readiness.md",
+  "../../../../docs/fees.md",
   // public directories
   "../../../../docs/api-reference/*.md",
   "../../../../docs/concepts/*.md",
@@ -71,10 +82,12 @@ const CATEGORY_RULES: Array<{ test: RegExp; category: DocCategory; order: number
   { test: /^api-reference\/subscriptions$/, category: "integrate",   order: 3 },
   { test: /^api-reference\/webhooks$/,     category: "integrate",    order: 4 },
   { test: /^api-reference\/errors$/,       category: "integrate",    order: 5 },
+  { test: /^api-reference\/limits$/,       category: "integrate",    order: 6,  title: "Limits" },
 
   { test: /^concepts\/architecture$/,      category: "concepts",     order: 0 },
   { test: /^concepts\/non-custodial-settlement$/, category: "concepts", order: 1 },
-  { test: /^concepts\/regulatory$/,        category: "concepts",     order: 2 },
+  { test: /^fees$/,                        category: "concepts",     order: 2,  title: "Fee Arithmetic" },
+  { test: /^concepts\/regulatory$/,        category: "concepts",     order: 3 },
 
   { test: /^guides\/drop-in-sdk$/,         category: "guides",       order: 0 },
   { test: /^guides\/recurring-billing$/,   category: "guides",       order: 1 },
